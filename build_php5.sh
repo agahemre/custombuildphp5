@@ -1,9 +1,6 @@
 #!/bin/sh
 
-
-# usage - ./build_php5.sh php-5.4.44
-# where php-5.4.44 is a PHP source directory
-
+# usage - ./build_php5.sh
 # Ubuntu users only, a quirk to locate libpcre
 if [ ! -f "/usr/lib/libpcre.a" ]; then
 	if [ -f "/usr/lib/i386-linux-gnu/libpcre.a" ]; then
@@ -13,7 +10,7 @@ if [ ! -f "/usr/lib/libpcre.a" ]; then
 	fi
 fi
 
-# define full path to php sources"
+# define full path to PHP5 sources"
 PHP5_SRC="$HOME/php-5.4.44"
 
 if [ ! -d "$PHP5_SRC" ]; then
@@ -21,7 +18,7 @@ if [ ! -d "$PHP5_SRC" ]; then
 	exit 1
 fi
 
-# define parent path where php installation goes to
+# define parent path where PHP5 installation goes to
 PHP5_BASE_PATH="/opt/php54"
 
 # Here following paths are required for installation binaries && general settings
@@ -64,13 +61,8 @@ PHP_CONF="--config-cache \
 cd $PHP5_SRC
 
 # Additionally you can add these, if they are needed
-#	--enable-ftp
-# 	--enable-exif
-#	--enable-calendar
 #	--with-snmp=/usr
 #	--with-tidy=/usr
-#	--with-xmlrpc
-#	--with-xsl=/usr
 # and any other, run "./configure --help" inside php sources
 
 # define extension configuration
@@ -122,7 +114,7 @@ EXT_CONF="--enable-bcmath \
 	--with-ldap=/usr --with-libdir=/lib/x86_64-linux-gnu
 "
 
-# CLI, php-fpm and apache2 module
+# CLI only
 ./configure $PHP_CONF \
 	--disable-cgi \
 	--with-readline \
@@ -130,6 +122,34 @@ EXT_CONF="--enable-bcmath \
 	--enable-cli \
 	--with-pear \
 	$EXT_CONF
+
+# CLI, apache2 module
+#./configure $PHP_CONF \
+#        --disable-cgi \
+#        --with-readline \
+#        --enable-pcntl \
+#        --enable-cli \
+#        --with-apxs2=/usr/bin/apxs2 \
+#        --with-pear \
+#        $PHP_FPM_CONF \
+#        $EXT_CONF
+
+# adapt fpm user and group if different wanted
+#PHP_FPM_CONF="--enable-fpm \
+#            --with-fpm-user=www-data \
+#            --with-fpm-group=www-data
+#"
+
+# CLI, php-fpm and apache2 module
+#./configure $PHP_CONF \
+#        --disable-cgi \
+#        --with-readline \
+#        --enable-pcntl \
+#        --enable-cli \
+#        --with-apxs2=/usr/bin/apxs2 \
+#        --with-pear \
+#        $PHP_FPM_CONF \
+#        $EXT_CONF
 
 # CGI and FastCGI
 #./configure $PHP_CONF --disable-cli --enable-cgi $EXT_CONF
