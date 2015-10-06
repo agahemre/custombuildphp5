@@ -10,7 +10,7 @@ if [ ! -f "/usr/lib/libpcre.a" ]; then
 	fi
 fi
 
-# define full path to PHP5 sources"
+# define full path to PHP5 sources
 PHP5_SRC="$HOME/php-5.4.44"
 
 if [ ! -d "$PHP5_SRC" ]; then
