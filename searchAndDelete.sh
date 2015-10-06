@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# usage ./searchAndDelete.s
+# usage ./searchAndDelete.sh <your-base-folder-to-search> <your-folder-want-to-delete>
 
 
 BASE_PATH=$1
