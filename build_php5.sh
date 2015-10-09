@@ -4,9 +4,18 @@
 # Ubuntu users only, a quirk to locate libpcre
 if [ ! -f "/usr/lib/libpcre.a" ]; then
 	if [ -f "/usr/lib/i386-linux-gnu/libpcre.a" ]; then
-		sudo ln -s /usr/lib/i386-linux-gnu/libpcre.a /usr/lib/libpcre.a
+		sudo ln -s /usr/lib/i386-linux-gnu/libpcre.a /usr/lib/libpcre.a;
 	elif [ -f "/usr/lib/x86_64-linux-gnu/libpcre.a" ]; then
-		sudo ln -s /usr/lib/x86_64-linux-gnu/libpcre.a /usr/lib/libpcre.a
+		sudo ln -s /usr/lib/x86_64-linux-gnu/libpcre.a /usr/lib/libpcre.a;
+	fi
+fi
+
+# Ubuntu users only, a quirk to locate gmp header src file
+if [ ! -f "/usr/include/gmp.h" ]; then
+	if [ -f "/usr/include/i386-linux-gnu/gmp.h" ]; then
+		sudo ln -s /usr/include/i386-linux-gnu/gmp.h /usr/include/gmp.h;
+	elif [ -f "/usr/include/x86_64-linux-gnu/gmp.h" ]; then
+		sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h;
 	fi
 fi
 
